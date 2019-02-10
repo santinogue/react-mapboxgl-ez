@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react';
+import { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 
 import { loadImages } from '../utils/images';
@@ -23,6 +23,8 @@ class Marker extends PureComponent {
     } else {
       map.on('load', this.onMapLoad);
     }
+
+    window.map = map;
   }
 
   componentDidUpdate () {
@@ -45,7 +47,7 @@ class Marker extends PureComponent {
 
   onMapLoad () {
     const { map, source } = this.props;
-    const image = source.properties.icon_image;
+    const { icon_image: image } = source.properties;
 
     this.addSource();
     Promise.all(loadImages(map, [image])).then(this.addLayer);
@@ -100,7 +102,7 @@ Marker.propTypes = {
   map: PropTypes.object,
   source: PropTypes.object,
   layout: PropTypes.object,
-  paint: PropTypes.paint,
+  paint: PropTypes.object,
 };
 
 export default Marker;
