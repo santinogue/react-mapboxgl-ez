@@ -1,5 +1,5 @@
 export const loadImages = (map, images) => (
-  images.map(imageURL => (
+  [...new Set(images)].map(imageURL => (
     new Promise((resolve, reject) => {
       if (!map.hasImage(imageURL)) {
         console.log(imageURL);
